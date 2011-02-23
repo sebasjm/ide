@@ -17,7 +17,9 @@
     
     <link rel="stylesheet" type="text/css" href="chat.css" />
     <script type="text/javascript" src="chat.js"></script>
-
+    <script type="text/javascript" >
+        var username = '<%= request.getUserPrincipal().getName() %>';
+    </script>
 
     <script src="src/ace.js" type="text/javascript" charset="utf-8"></script>
     <script src="src/theme-twilight.js" type="text/javascript" charset="utf-8"></script>
@@ -79,7 +81,10 @@ $(document).ready(function(){
 </head>
 <body>
 
-<div id="file"> file list </div>
+<div id="file"> 
+	file list <br/>
+	<%= request.getUserPrincipal().getName() %>
+</div>
 
 <div id="editor">some text: sebastian javier marchano</div>
 
@@ -88,34 +93,7 @@ $(document).ready(function(){
     <div id="members"></div>
     <div id="input">
         <div id="join">
-            <table>
-                <tbody>
-                <tr>
-                    <td>
-                        <input id="useServer" type="checkbox" />
-                    </td>
-                    <td>
-                        <label for="useServer" title="Selects whether to use cross-domain CometD">Use Alternate Server</label>
-                    </td>
-                    <td>
-                        <input id="altServer" type="text" value="http://127.0.0.1:8080/cometd/cometd" />
-                    </td>
-                    <td>&nbsp;</td>
-                </tr>
-                <tr>
-                    <td>&nbsp;</td>
-                    <td>
-                        Enter Chat Nickname
-                    </td>
-                    <td>
-                        <input id="username" type="text" />
-                    </td>
-                    <td>
-                        <button id="joinButton" class="button">Join</button>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+		nunca se ve
         </div>
         <div id="joined">
             Chat:

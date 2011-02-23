@@ -16,20 +16,10 @@
         }
 
         // Setup UI
-        $('#join').show();
-        $('#joined').hide();
-        $('#altServer').attr('autocomplete', 'off');
-        $('#joinButton').click(function() { chat.join($('#username').val()); });
+        $('#joined').show();
+        $('#join').hide();
         $('#sendButton').click(chat.send);
         $('#leaveButton').click(chat.leave);
-        $('#username').attr('autocomplete', 'off').focus();
-        $('#username').keyup(function(e)
-        {
-            if (e.keyCode == 13)
-            {
-                chat.join($('#username').val());
-            }
-        });
         $('#phrase').attr('autocomplete', 'off');
         $('#phrase').keyup(function(e)
         {
@@ -38,6 +28,7 @@
                 chat.send();
             }
         });
+	chat.join(username);
     });
 
     function Chat(state)
