@@ -52,7 +52,6 @@
                 return;
             }
 
-            var cometdURL = location.protocol + "//" + location.host + "/cometd";
             var useServer = $('#useServer').attr('checked');
             if (useServer)
             {
@@ -62,15 +61,7 @@
                     alert('Please enter a server address');
                     return;
                 }
-                cometdURL = altServer;
             }
-
-            $.cometd.websocketEnabled = true;
-            $.cometd.configure({
-                url: cometdURL,
-                logLevel: 'debug'
-            });
-            $.cometd.handshake();
 
             $('#join').hide();
             $('#joined').show();
@@ -82,7 +73,7 @@
             $.cometd.batch(function()
             {
                 $.cometd.publish('/chat/demo', {
-                    user: _username,
+                    user: _usetername,
                     membership: 'leave',
                     chat: _username + ' has left'
                 });
