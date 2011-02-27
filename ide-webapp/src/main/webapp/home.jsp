@@ -25,7 +25,7 @@
 
             $.cometd.websocketEnabled = true;
             $.cometd.configure({
-                url: location.protocol + "//" + location.host + "/cometd",
+                url: location.protocol + "//" + location.host.split(':')[0] + ":27306" +"/d/",
                 logLevel: 'info'
             });
             $.cometd.handshake();

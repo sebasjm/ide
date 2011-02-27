@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd">
+ 
+<Configure id="ServerA" class="org.mortbay.jetty.Server">
+
+    <!-- set up the port for ServerA -->
+    <Set name="connectors">
+      <Array type="org.mortbay.jetty.Connector">
+        <Item>
+          <New class="org.mortbay.jetty.nio.SelectChannelConnector">
+            <Set name="port">8080</Set>
+            <Set name="maxIdleTime">30000</Set>
+            <Set name="Acceptors">10</Set>
+          </New>
+        </Item>
+      </Array>
+    </Set>
+
+</Configure>
