@@ -18,7 +18,6 @@
 
     <modules>
         <module>ide-webapp</module>
-        <module>ide-app</module>
         <module>ide-services</module>
     </modules>
 
