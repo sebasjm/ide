@@ -28,15 +28,6 @@
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>2.1.1</version>
-                <configuration>
-                    <overlays>
-                        <overlay />
-                        <overlay>
-                            <groupId>org.cometd.javascript</groupId>
-                            <artifactId>cometd-javascript-jquery</artifactId>
-                        </overlay>
-                    </overlays>
-                </configuration>
             </plugin>
         </plugins>
     </build>
