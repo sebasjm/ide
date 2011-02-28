@@ -15,6 +15,13 @@
         <jetty-plugin-version>${jetty-version}</jetty-plugin-version>
     </properties>
 
+  <repositories>
+    <repository>
+      <id>morphia-repo</id>
+      <url>http://morphia.googlecode.com/svn/mavenrepo/</url>
+    </repository>
+  </repositories>
+
     <build>
         <plugins>
             <plugin>
@@ -69,7 +76,28 @@
                     <artifactId>jetty-client</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency>        
+        </dependency>
+
+        <dependency>
+        <groupId>com.google.code.morphia</groupId>
+        <artifactId>morphia</artifactId>
+        <version>0.99</version>
+</dependency>
+<dependency>
+        <groupId>cglib</groupId>
+        <artifactId>cglib-nodep</artifactId>
+        <version>[2.1_3,)</version>
+        <type>jar</type>
+        <optional>true</optional>
+</dependency>
+<dependency>
+        <groupId>com.thoughtworks.proxytoys</groupId>
+        <artifactId>proxytoys</artifactId>
+        <version>1.0</version>
+        <type>jar</type>
+        <optional>true</optional>
+</dependency>
+
     </dependencies>
 
 </project>
