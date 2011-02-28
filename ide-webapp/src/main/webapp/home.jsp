@@ -36,8 +36,10 @@
         <script src="/src/theme-twilight.js" type="text/javascript" charset="utf-8"></script>
         <script src="/src/mode-javascript.js" type="text/javascript" charset="utf-8"></script>
         <script src="/src/mode-xml.js" type="text/javascript" charset="utf-8"></script>
+        <script src="/src/mode-css.js" type="text/javascript" charset="utf-8"></script>
+        <script src="/src/mode-html.js" type="text/javascript" charset="utf-8"></script>
+        <script src="/src/mode-java.js" type="text/javascript" charset="utf-8"></script>
         <script src="/src/keybinding-vim.js" type="text/javascript" charset="utf-8"></script>
-
 
         <style type="text/css" media="screen">
             body {
@@ -52,7 +54,7 @@
                 left: 15%;
                 right: 20%;
             }
-            #file { 
+            #files { 
                 margin: 0;
                 position: absolute;
                 top: 5%;
@@ -68,23 +70,43 @@
                 left: 80%;
                 right: 0;
             }
+            #directory {
+                color: red;
+                left: 5px;
+            }
+            #text_file {
+                color: blue;
+                left: 5px;
+            }
         </style>
 
 
 
         <script type="text/javascript" id="script_example">
+        var JavaScriptMode;
+        var CssMode;
+        var HtmlMode;
+        var XmlMode;
+        var JavaMode;
+        var TextMode;
             $(document).ready(function(){
                 $("#editor").html( $("#script_example").html() );
 
-                var JavaScriptMode = require("ace/mode/javascript").Mode;
-	
-                var mode = new JavaScriptMode();
+                JavaScriptMode = require("ace/mode/javascript").Mode;
+                CssMode = require("ace/mode/css").Mode;
+                HtmlMode = require("ace/mode/html").Mode;
+                XmlMode = require("ace/mode/xml").Mode;
+                JavaMode = require("ace/mode/java").Mode;
+                TextMode = require("ace/mode/text").Mode;
+                
+                var UndoManager = require("ace/undomanager").UndoManager;
                 var keyBinding = require("ace/keyboard/keybinding/vim").Vim;
     
                 editor = ace.edit("editor");
-                editor.getSession().setMode( mode );
+                editor.getSession().setMode( new JavaScriptMode() );
                 editor.setKeyboardHandler( keyBinding )
                 editor.setTheme("ace/theme/twilight");
+                editor.setUndoManager( new UndoManager() );
                 
             });
         </script>
@@ -92,10 +114,10 @@
     </head>
     <body>
 
-        <div id="file">
+        <div id="files">
             
-            <div class="file">
-                root
+            <div class="directory">
+                <div id="file_ide" class="filename"> ide </div>
             </div>
             
         </div>

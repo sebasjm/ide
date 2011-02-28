@@ -7,7 +7,11 @@
         var state = stateCookie ? org.cometd.JSON.fromJSON(stateCookie) : null;
         var files = new Files(state);
 
-        $(".file").click( files.selectFile );
+        $("body").click(function(e){
+            if( $(e.target).hasClass('filename') ) {
+                files.selectFile.call(e.target,e);
+            }
+        });
 
 	files.join(project);
     });
@@ -46,17 +50,59 @@
         };
 
         this.selectFile = function( event ) {
+            var filename = "";
+            var node = $(event.target);
+            while( node.attr("id") != "files" ) {
+                if (node.hasClass("directory") || node.hasClass("text_file") )
+                    filename = node.children(".filename").html().trim() + "/" + filename;
+                node = node.parent();
+            }
             
             $.cometd.publish('/service/files', {
                 project: _project,
-                file: $(event.target).html()
+                filename: filename
             });
             
         };
 
-        this.update = function(message) {
-            var content = message.data.content;
-
+        this.updateList = function(message) {
+            var files = message.data.files;
+            var name = message.data.filename;
+            
+            var result = "<div class='directory'>";
+            result += "<div id='file_"+name+"'  class='filename'> "+name+" </div>";
+            result += "<div class='dir_content'>"; //directory content
+            for (i = 0; i < files.length; i++) {
+                result += "<div class='"+files[i].split(':')[0]+"'>"; //directory or text_file
+                result += "<div id='file_"+files[i].split(':')[1]+"' class='filename'> "+files[i].split(':')[1]+" </div>";
+                result += "</div>";
+            }
+            result += "</div>"; //directory content
+            result += "</div>"; //directory
+            
+            $("#file_"+name).parent().replaceWith(result);
+        };
+        
+        this.updateView = function(message) {
+            var content = message.data.file;
+            var ext = message.data.filename.split('.').pop();
+            if (ext == 'java') {
+                editor.getSession().setMode( new JavaMode() );
+            } else 
+            if (ext == 'xml') {
+                editor.getSession().setMode( new XmlMode() );
+            } else 
+            if (ext == 'html') {
+                editor.getSession().setMode( new HtmlMode() );
+            } else 
+            if (ext == 'css') {
+                editor.getSession().setMode( new CssMode() );
+            } else 
+            if (ext == 'js') {
+                editor.getSession().setMode( new JavaScriptMode() );
+            } else {
+                editor.getSession().setMode( new TextMode() );
+            }
             editor.getSession().setValue(content);
         };
 
@@ -71,7 +117,8 @@
         }
         
         function _subscribe() {
-            _filesSubscription = $.cometd.subscribe('/files', _self.update);
+            _filesSubscription = $.cometd.subscribe('/files', _self.updateList);
+            _filesSubscription = $.cometd.subscribe('/view', _self.updateView);
         }
 
         function _connectionInitialized() {
