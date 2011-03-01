@@ -70,11 +70,13 @@
                 left: 80%;
                 right: 0;
             }
-            #directory {
+            .directory {
                 color: red;
-                left: 5px;
             }
-            #text_file {
+            .dir_content {
+                padding-left: 10px;
+            }
+            .text_file {
                 color: blue;
                 left: 5px;
             }
@@ -104,9 +106,9 @@
     
                 editor = ace.edit("editor");
                 editor.getSession().setMode( new JavaScriptMode() );
+                editor.getSession().setUndoManager( new UndoManager() );
                 editor.setKeyboardHandler( keyBinding )
                 editor.setTheme("ace/theme/twilight");
-                editor.setUndoManager( new UndoManager() );
                 
             });
         </script>
@@ -117,7 +119,7 @@
         <div id="files">
             
             <div class="directory">
-                <div id="file_ide" class="filename"> ide </div>
+                <div id="file_1_0" class="filename"> ide </div>
             </div>
             
         </div>

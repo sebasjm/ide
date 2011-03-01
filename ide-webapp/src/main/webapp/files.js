@@ -60,7 +60,8 @@
             
             $.cometd.publish('/service/files', {
                 project: _project,
-                filename: filename
+                filename: filename,
+                fileId: event.target.id
             });
             
         };
@@ -68,19 +69,21 @@
         this.updateList = function(message) {
             var files = message.data.files;
             var name = message.data.filename;
+            var depth = message.data.depth;
+            var fileId = message.data.fileId;
             
             var result = "<div class='directory'>";
-            result += "<div id='file_"+name+"'  class='filename'> "+name+" </div>";
+            result += "<div id='"+fileId+"'  class='filename'> "+name+" </div>";
             result += "<div class='dir_content'>"; //directory content
             for (i = 0; i < files.length; i++) {
                 result += "<div class='"+files[i].split(':')[0]+"'>"; //directory or text_file
-                result += "<div id='file_"+files[i].split(':')[1]+"' class='filename'> "+files[i].split(':')[1]+" </div>";
+                result += "<div id='file_"+depth+"_"+i+"' class='filename'> "+files[i].split(':')[1]+" </div>";
                 result += "</div>";
             }
             result += "</div>"; //directory content
             result += "</div>"; //directory
             
-            $("#file_"+name).parent().replaceWith(result);
+            $("#"+fileId).parent().replaceWith(result);
         };
         
         this.updateView = function(message) {

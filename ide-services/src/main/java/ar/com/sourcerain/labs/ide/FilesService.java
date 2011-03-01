@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
+import org.apache.commons.lang.StringUtils;
 
 import org.cometd.bayeux.server.BayeuxServer;
 import org.cometd.bayeux.server.ConfigurableServerChannel;
@@ -24,6 +25,7 @@ import org.cometd.java.annotation.Listener;
 import org.cometd.java.annotation.Service;
 import org.cometd.java.annotation.Session;
 import org.cometd.server.authorizer.GrantAuthorizer;
+import org.eclipse.jetty.util.StringUtil;
 
 @Service("files")
 public class FilesService {
@@ -74,6 +76,8 @@ public class FilesService {
                     }
                     
                     result.put("files", files);
+                    result.put("depth", StringUtils.countMatches(file.getAbsolutePath(), File.separator));
+                    result.put("fileId", params.get("fileId"));
                     
                     _session.getLocalSession().getChannel("/files").publish(result);
                 }
