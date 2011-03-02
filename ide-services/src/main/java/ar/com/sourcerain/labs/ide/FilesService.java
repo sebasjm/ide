@@ -31,7 +31,6 @@ import org.eclipse.jetty.util.StringUtil;
 public class FilesService {
 
       private static final String root_directory = "/C:/engine";
-//    private static final String root_directory = "/home/sebas/projects";
     @Inject
     private BayeuxServer _bayeux;
     @Session
@@ -39,7 +38,7 @@ public class FilesService {
 
     @SuppressWarnings("unused")
     @Configure("/files/**")
-    private void configureChatStarStar(ConfigurableServerChannel channel) {
+    private void configureEditorStarStar(ConfigurableServerChannel channel) {
         channel.addAuthorizer(GrantAuthorizer.GRANT_PUBLISH);
     }
 
@@ -67,7 +66,8 @@ public class FilesService {
                     }
                     result.put("file", buf.toString());
                     
-                    _session.getLocalSession().getChannel("/view").publish(result);
+                    _session.getLocalSession().setAttribute("editingFile", file);
+                    _session.getLocalSession().getChannel("/editor").publish(result);
                 } else {
                     List<String> files = new ArrayList<String>();
                     for (String childName : children) {

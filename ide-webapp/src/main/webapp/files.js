@@ -7,7 +7,7 @@
         var state = stateCookie ? org.cometd.JSON.fromJSON(stateCookie) : null;
         var files = new Files(state);
 
-        $("body").click(function(e){
+        $("body").click(function(e) {
             if( $(e.target).hasClass('filename') ) {
                 files.selectFile.call(e.target,e);
             }
@@ -38,14 +38,9 @@
         };
 
         this.leave = function() {
-                _unsubscribe();
+            _unsubscribe();
                 
             $.cometd.disconnect();
-
-            $('#join').show();
-            $('#joined').hide();
-            $('#username').focus();
-            $('#members').empty();
             _disconnecting = true;
         };
 
@@ -86,30 +81,6 @@
             $("#"+fileId).parent().replaceWith(result);
         };
         
-        this.updateView = function(message) {
-            var content = message.data.file;
-            var ext = message.data.filename.split('.').pop();
-            if (ext == 'java') {
-                editor.getSession().setMode( new JavaMode() );
-            } else 
-            if (ext == 'xml') {
-                editor.getSession().setMode( new XmlMode() );
-            } else 
-            if (ext == 'html') {
-                editor.getSession().setMode( new HtmlMode() );
-            } else 
-            if (ext == 'css') {
-                editor.getSession().setMode( new CssMode() );
-            } else 
-            if (ext == 'js') {
-                editor.getSession().setMode( new JavaScriptMode() );
-            } else {
-                editor.getSession().setMode( new TextMode() );
-            }
-            editor.getSession().setValue(content);
-        };
-
-
         function _unsubscribe()
         {
             if (_filesSubscription)
@@ -121,7 +92,6 @@
         
         function _subscribe() {
             _filesSubscription = $.cometd.subscribe('/files', _self.updateList);
-            _filesSubscription = $.cometd.subscribe('/view', _self.updateView);
         }
 
         function _connectionInitialized() {

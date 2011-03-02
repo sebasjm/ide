@@ -47,6 +47,7 @@
             <param-name>services</param-name>
             <param-value>
                 ar.com.sourcerain.labs.ide.ChatService,
+                ar.com.sourcerain.labs.ide.EditorService,
                 ar.com.sourcerain.labs.ide.FilesService
             </param-value>
         </init-param>
