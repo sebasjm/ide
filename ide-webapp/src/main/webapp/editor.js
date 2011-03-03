@@ -8,6 +8,9 @@
         var editorScreen = new Editor(state);
         
         $("#save_button").click( editorScreen.save );
+        $("#clear_button").click( function () {
+            editor.getSession().setValue( editor.getSession().original );
+        }) ;
         
 	editorScreen.join();
     });
@@ -35,10 +38,10 @@
         };
 
         this.save = function( event ) {
-            var diff = dmp.diff_main( editor.getSession().original, editor.getSession().getValue() );
+            var patch = dmp.patch_make( editor.getSession().original, editor.getSession().getValue() );
             
             $.cometd.publish('/service/editor', {
-                diff: diff
+                patch: patch
             });
             
         };

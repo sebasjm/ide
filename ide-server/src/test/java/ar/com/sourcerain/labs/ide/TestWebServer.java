@@ -15,9 +15,9 @@ import org.testng.annotations.Test;
 public class TestWebServer {
 
     public void initWS() throws Exception {
-        WebServer.main(new String[]{
-            "../ide-webapp/target/ide-webapp-1.0.war",
-            "../ide-services/target/ide-services-1.0-SNAPSHOT.war"
-        });
+//        WebServer.main(new String[]{
+//            "../ide-webapp/target/ide-webapp-1.0.war",
+//            "../ide-services/target/ide-services-1.0-SNAPSHOT.war"
+//        });
     }
 }

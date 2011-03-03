@@ -9,11 +9,11 @@ import java.io.FileReader;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 
 import org.cometd.bayeux.server.BayeuxServer;
@@ -25,12 +25,14 @@ import org.cometd.java.annotation.Listener;
 import org.cometd.java.annotation.Service;
 import org.cometd.java.annotation.Session;
 import org.cometd.server.authorizer.GrantAuthorizer;
-import org.eclipse.jetty.util.StringUtil;
 
 @Service("files")
 public class FilesService {
 
-      private static final String root_directory = "/C:/engine";
+    private static final String root_directory = "/C:/engine";
+    
+    public static File openedFile = null; //FIXME: find a way to store object in server side session
+    
     @Inject
     private BayeuxServer _bayeux;
     @Session
@@ -58,15 +60,11 @@ public class FilesService {
         try {
             if (file.exists()) {
                 if (children == null) {
-                    BufferedReader reader = new BufferedReader(new FileReader(file));
-                    String line = null;
-                    StringBuilder buf = new StringBuilder();
-                    while ((line = reader.readLine()) != null) {
-                        buf.append(line).append('\n');
-                    }
-                    result.put("file", buf.toString());
+                    result.put("file", FileUtils.readFileToString(file));
                     
-                    _session.getLocalSession().setAttribute("editingFile", file);
+                    _session.setAttribute("editingFile", file);
+                    openedFile = file;
+                    
                     _session.getLocalSession().getChannel("/editor").publish(result);
                 } else {
                     List<String> files = new ArrayList<String>();
