@@ -37,6 +37,18 @@
                     </archive>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>ar.com.sourcerain.labs.ide.WebServer</mainClass>
+                    <arguments>
+                        <argument>../ide-webapp/target/ide-webapp-1.0.war</argument>
+                        <argument>../ide-services/target/ide-services-1.0-SNAPSHOT.war</argument>
+                    </arguments>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
 
