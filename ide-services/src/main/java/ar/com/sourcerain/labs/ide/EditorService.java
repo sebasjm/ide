@@ -88,6 +88,10 @@ public class EditorService {
 
         LinkedList<Patch> patches = getPatchesFromRaw( (Object[]) params.get("patch") );
         
+        System.out.println(" ====== SHOWING DIFERENCES =======");
+        System.out.println( dmpEngine.patch_toText( patches ) );
+        System.out.println("==================================");
+        
         File fileIn = (File)_server.getAttribute("editingFile");
         fileIn = FilesService.openedFile;
         
