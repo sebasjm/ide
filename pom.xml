@@ -4,37 +4,17 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-    <groupId>labs.sourcerain.com.ar</groupId>
+
+    <groupId>ar.com.sourcerain.labs</groupId>
     <artifactId>ide</artifactId>
     <packaging>pom</packaging>
     <version>1.0</version>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <jetty-version>7.3.0.v20110203</jetty-version>
-        <jetty-plugin-version>${jetty-version}</jetty-plugin-version>
-    </properties>
-
-
     <modules>
-        <module>ide-webapp</module>
-        <module>ide-services</module>
+        <module>parent</module>
+        <module>jetty</module>
+        <module>web</module>
+        <module>services</module>
     </modules>
 
-    <build>
-        <plugins>
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.3.2</version>
-                <configuration>
-                    <source>1.5</source>
-                    <target>1.5</target>
-                </configuration>
-            </plugin>
-            <plugin>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>2.1.1</version>
-            </plugin>
-        </plugins>
-    </build>
 </project>
