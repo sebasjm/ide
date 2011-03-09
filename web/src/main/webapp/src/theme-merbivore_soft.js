@@ -19,7 +19,7 @@
  * the Initial Developer. All Rights Reserved.
  *
  * Contributor(s):
- *      Fabian Jakobs <fabian AT ajax DOT org>
+ *      Michael Schwartz <mr.pants AT gmail DOT com>
  *
  * Alternatively, the contents of this file may be used under the terms of
  * either the GNU General Public License Version 2 or later (the "GPL"), or
@@ -35,163 +35,163 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-define('ace/theme/mono_industrial', function(require, exports, module) {
+define('ace/theme/merbivore_soft', function(require, exports, module) {
 
     var dom = require("pilot/dom");
 
-    var cssText = ".ace-mono-industrial .ace_editor {\
+    var cssText = ".ace-merbivore-soft .ace_editor {\
   border: 2px solid rgb(159, 159, 159);\
 }\
 \
-.ace-mono-industrial .ace_editor.ace_focus {\
+.ace-merbivore-soft .ace_editor.ace_focus {\
   border: 2px solid #327fbd;\
 }\
 \
-.ace-mono-industrial .ace_gutter {\
+.ace-merbivore-soft .ace_gutter {\
   width: 50px;\
   background: #e8e8e8;\
   color: #333;\
   overflow : hidden;\
 }\
 \
-.ace-mono-industrial .ace_gutter-layer {\
+.ace-merbivore-soft .ace_gutter-layer {\
   width: 100%;\
   text-align: right;\
 }\
 \
-.ace-mono-industrial .ace_gutter-layer .ace_gutter-cell {\
+.ace-merbivore-soft .ace_gutter-layer .ace_gutter-cell {\
   padding-right: 6px;\
 }\
 \
-.ace-mono-industrial .ace_print_margin {\
+.ace-merbivore-soft .ace_print_margin {\
   width: 1px;\
   background: #e8e8e8;\
 }\
 \
-.ace-mono-industrial .ace_scroller {\
-  background-color: #222C28;\
+.ace-merbivore-soft .ace_scroller {\
+  background-color: #1C1C1C;\
 }\
 \
-.ace-mono-industrial .ace_text-layer {\
+.ace-merbivore-soft .ace_text-layer {\
   cursor: text;\
-  color: #FFFFFF;\
+  color: #E6E1DC;\
 }\
 \
-.ace-mono-industrial .ace_cursor {\
+.ace-merbivore-soft .ace_cursor {\
   border-left: 2px solid #FFFFFF;\
 }\
 \
-.ace-mono-industrial .ace_cursor.ace_overwrite {\
+.ace-merbivore-soft .ace_cursor.ace_overwrite {\
   border-left: 0px;\
   border-bottom: 1px solid #FFFFFF;\
 }\
  \
-.ace-mono-industrial .ace_marker-layer .ace_selection {\
-  background: rgba(145, 153, 148, 0.40);\
+.ace-merbivore-soft .ace_marker-layer .ace_selection {\
+  background: #494949;\
 }\
 \
-.ace-mono-industrial .ace_marker-layer .ace_step {\
+.ace-merbivore-soft .ace_marker-layer .ace_step {\
   background: rgb(198, 219, 174);\
 }\
 \
-.ace-mono-industrial .ace_marker-layer .ace_bracket {\
+.ace-merbivore-soft .ace_marker-layer .ace_bracket {\
   margin: -1px 0 0 -1px;\
-  border: 1px solid rgba(102, 108, 104, 0.50);\
+  border: 1px solid #FCE94F;\
 }\
 \
-.ace-mono-industrial .ace_marker-layer .ace_active_line {\
-  background: rgba(12, 13, 12, 0.25);\
+.ace-merbivore-soft .ace_marker-layer .ace_active_line {\
+  background: #333435;\
 }\
 \
        \
-.ace-mono-industrial .ace_invisible {\
-  color: rgba(102, 108, 104, 0.50);\
+.ace-merbivore-soft .ace_invisible {\
+  color: #404040;\
 }\
 \
-.ace-mono-industrial .ace_keyword {\
-  color:#A39E64;\
+.ace-merbivore-soft .ace_keyword {\
+  color:#FC803A;\
 }\
 \
-.ace-mono-industrial .ace_keyword.ace_operator {\
-  color:#A8B3AB;\
-}\
-\
-.ace-mono-industrial .ace_constant {\
-  color:#E98800;\
-}\
-\
-.ace-mono-industrial .ace_constant.ace_language {\
+.ace-merbivore-soft .ace_keyword.ace_operator {\
   \
 }\
 \
-.ace-mono-industrial .ace_constant.ace_library {\
-  \
+.ace-merbivore-soft .ace_constant {\
+  color:#68C1D8;\
 }\
 \
-.ace-mono-industrial .ace_constant.ace_numeric {\
-  color:#E98800;\
+.ace-merbivore-soft .ace_constant.ace_language {\
+  color:#E1C582;\
 }\
 \
-.ace-mono-industrial .ace_invalid {\
+.ace-merbivore-soft .ace_constant.ace_library {\
+  color:#8EC65F;\
+}\
+\
+.ace-merbivore-soft .ace_constant.ace_numeric {\
+  color:#7FC578;\
+}\
+\
+.ace-merbivore-soft .ace_invalid {\
   color:#FFFFFF;\
-background-color:rgba(153, 0, 0, 0.68);\
+  background-color:#FE3838;\
 }\
 \
-.ace-mono-industrial .ace_invalid.ace_illegal {\
+.ace-merbivore-soft .ace_invalid.ace_illegal {\
   \
 }\
 \
-.ace-mono-industrial .ace_invalid.ace_deprecated {\
+.ace-merbivore-soft .ace_invalid.ace_deprecated {\
+  color:#FFFFFF;\
+  background-color:#FE3838;\
+}\
+\
+.ace-merbivore-soft .ace_support {\
   \
 }\
 \
-.ace-mono-industrial .ace_support {\
+.ace-merbivore-soft .ace_support.ace_function {\
+  color:#FC803A;\
+}\
+\
+.ace-merbivore-soft .ace_function.ace_buildin {\
   \
 }\
 \
-.ace-mono-industrial .ace_support.ace_function {\
-  color:#588E60;\
+.ace-merbivore-soft .ace_string {\
+  color:#8EC65F;\
 }\
 \
-.ace-mono-industrial .ace_function.ace_buildin {\
+.ace-merbivore-soft .ace_string.ace_regexp {\
   \
 }\
 \
-.ace-mono-industrial .ace_string {\
+.ace-merbivore-soft .ace_comment {\
+  color:#AC4BB8;\
+}\
+\
+.ace-merbivore-soft .ace_comment.ace_doc {\
   \
 }\
 \
-.ace-mono-industrial .ace_string.ace_regexp {\
+.ace-merbivore-soft .ace_comment.ace_doc.ace_tag {\
   \
 }\
 \
-.ace-mono-industrial .ace_comment {\
-  color:#666C68;\
-background-color:#151C19;\
-}\
-\
-.ace-mono-industrial .ace_comment.ace_doc {\
+.ace-merbivore-soft .ace_variable {\
   \
 }\
 \
-.ace-mono-industrial .ace_comment.ace_doc.ace_tag {\
+.ace-merbivore-soft .ace_variable.ace_language {\
   \
 }\
 \
-.ace-mono-industrial .ace_variable {\
-  \
-}\
-\
-.ace-mono-industrial .ace_variable.ace_language {\
-  color:#648BD2;\
-}\
-\
-.ace-mono-industrial .ace_xml_pe {\
+.ace-merbivore-soft .ace_xml_pe {\
   \
 }";
 
     // import CSS once
     dom.importCssString(cssText);
 
-    exports.cssClass = "ace-mono-industrial";
+    exports.cssClass = "ace-merbivore-soft";
 });

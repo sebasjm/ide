@@ -19,7 +19,7 @@
  * the Initial Developer. All Rights Reserved.
  *
  * Contributor(s):
- *      Fabian Jakobs <fabian AT ajax DOT org>
+ *      Michael Schwartz <mr.pants AT gmail DOT com>
  *
  * Alternatively, the contents of this file may be used under the terms of
  * either the GNU General Public License Version 2 or later (the "GPL"), or
@@ -35,163 +35,163 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-define('ace/theme/mono_industrial', function(require, exports, module) {
+define('ace/theme/vibrant_ink', function(require, exports, module) {
 
     var dom = require("pilot/dom");
 
-    var cssText = ".ace-mono-industrial .ace_editor {\
+    var cssText = ".ace-vibrant-ink .ace_editor {\
   border: 2px solid rgb(159, 159, 159);\
 }\
 \
-.ace-mono-industrial .ace_editor.ace_focus {\
+.ace-vibrant-ink .ace_editor.ace_focus {\
   border: 2px solid #327fbd;\
 }\
 \
-.ace-mono-industrial .ace_gutter {\
+.ace-vibrant-ink .ace_gutter {\
   width: 50px;\
   background: #e8e8e8;\
   color: #333;\
   overflow : hidden;\
 }\
 \
-.ace-mono-industrial .ace_gutter-layer {\
+.ace-vibrant-ink .ace_gutter-layer {\
   width: 100%;\
   text-align: right;\
 }\
 \
-.ace-mono-industrial .ace_gutter-layer .ace_gutter-cell {\
+.ace-vibrant-ink .ace_gutter-layer .ace_gutter-cell {\
   padding-right: 6px;\
 }\
 \
-.ace-mono-industrial .ace_print_margin {\
+.ace-vibrant-ink .ace_print_margin {\
   width: 1px;\
   background: #e8e8e8;\
 }\
 \
-.ace-mono-industrial .ace_scroller {\
-  background-color: #222C28;\
+.ace-vibrant-ink .ace_scroller {\
+  background-color: #0F0F0F;\
 }\
 \
-.ace-mono-industrial .ace_text-layer {\
+.ace-vibrant-ink .ace_text-layer {\
   cursor: text;\
   color: #FFFFFF;\
 }\
 \
-.ace-mono-industrial .ace_cursor {\
+.ace-vibrant-ink .ace_cursor {\
   border-left: 2px solid #FFFFFF;\
 }\
 \
-.ace-mono-industrial .ace_cursor.ace_overwrite {\
+.ace-vibrant-ink .ace_cursor.ace_overwrite {\
   border-left: 0px;\
   border-bottom: 1px solid #FFFFFF;\
 }\
  \
-.ace-mono-industrial .ace_marker-layer .ace_selection {\
-  background: rgba(145, 153, 148, 0.40);\
+.ace-vibrant-ink .ace_marker-layer .ace_selection {\
+  background: #6699CC;\
 }\
 \
-.ace-mono-industrial .ace_marker-layer .ace_step {\
+.ace-vibrant-ink .ace_marker-layer .ace_step {\
   background: rgb(198, 219, 174);\
 }\
 \
-.ace-mono-industrial .ace_marker-layer .ace_bracket {\
+.ace-vibrant-ink .ace_marker-layer .ace_bracket {\
   margin: -1px 0 0 -1px;\
-  border: 1px solid rgba(102, 108, 104, 0.50);\
+  border: 1px solid #99CC99;\
 }\
 \
-.ace-mono-industrial .ace_marker-layer .ace_active_line {\
-  background: rgba(12, 13, 12, 0.25);\
+.ace-vibrant-ink .ace_marker-layer .ace_active_line {\
+  background: #333333;\
 }\
 \
        \
-.ace-mono-industrial .ace_invisible {\
-  color: rgba(102, 108, 104, 0.50);\
+.ace-vibrant-ink .ace_invisible {\
+  color: #404040;\
 }\
 \
-.ace-mono-industrial .ace_keyword {\
-  color:#A39E64;\
+.ace-vibrant-ink .ace_keyword {\
+  color:#FF6600;\
 }\
 \
-.ace-mono-industrial .ace_keyword.ace_operator {\
-  color:#A8B3AB;\
-}\
-\
-.ace-mono-industrial .ace_constant {\
-  color:#E98800;\
-}\
-\
-.ace-mono-industrial .ace_constant.ace_language {\
+.ace-vibrant-ink .ace_keyword.ace_operator {\
   \
 }\
 \
-.ace-mono-industrial .ace_constant.ace_library {\
+.ace-vibrant-ink .ace_constant {\
   \
 }\
 \
-.ace-mono-industrial .ace_constant.ace_numeric {\
-  color:#E98800;\
+.ace-vibrant-ink .ace_constant.ace_language {\
+  color:#339999;\
 }\
 \
-.ace-mono-industrial .ace_invalid {\
-  color:#FFFFFF;\
-background-color:rgba(153, 0, 0, 0.68);\
-}\
-\
-.ace-mono-industrial .ace_invalid.ace_illegal {\
+.ace-vibrant-ink .ace_constant.ace_library {\
   \
 }\
 \
-.ace-mono-industrial .ace_invalid.ace_deprecated {\
+.ace-vibrant-ink .ace_constant.ace_numeric {\
+  color:#99CC99;\
+}\
+\
+.ace-vibrant-ink .ace_invalid {\
+  color:#CCFF33;\
+  background-color:#000000;\
+}\
+\
+.ace-vibrant-ink .ace_invalid.ace_illegal {\
   \
 }\
 \
-.ace-mono-industrial .ace_support {\
+.ace-vibrant-ink .ace_invalid.ace_deprecated {\
+  color:#CCFF33;\
+  background-color:#000000;\
+}\
+\
+.ace-vibrant-ink .ace_support {\
   \
 }\
 \
-.ace-mono-industrial .ace_support.ace_function {\
-  color:#588E60;\
+.ace-vibrant-ink .ace_support.ace_function {\
+  color:#FFCC00;\
 }\
 \
-.ace-mono-industrial .ace_function.ace_buildin {\
+.ace-vibrant-ink .ace_function.ace_buildin {\
   \
 }\
 \
-.ace-mono-industrial .ace_string {\
+.ace-vibrant-ink .ace_string {\
+  color:#66FF00;\
+}\
+\
+.ace-vibrant-ink .ace_string.ace_regexp {\
   \
 }\
 \
-.ace-mono-industrial .ace_string.ace_regexp {\
+.ace-vibrant-ink .ace_comment {\
+  color:#9933CC;\
+}\
+\
+.ace-vibrant-ink .ace_comment.ace_doc {\
   \
 }\
 \
-.ace-mono-industrial .ace_comment {\
-  color:#666C68;\
-background-color:#151C19;\
-}\
-\
-.ace-mono-industrial .ace_comment.ace_doc {\
+.ace-vibrant-ink .ace_comment.ace_doc.ace_tag {\
   \
 }\
 \
-.ace-mono-industrial .ace_comment.ace_doc.ace_tag {\
+.ace-vibrant-ink .ace_variable {\
   \
 }\
 \
-.ace-mono-industrial .ace_variable {\
+.ace-vibrant-ink .ace_variable.ace_language {\
   \
 }\
 \
-.ace-mono-industrial .ace_variable.ace_language {\
-  color:#648BD2;\
-}\
-\
-.ace-mono-industrial .ace_xml_pe {\
+.ace-vibrant-ink .ace_xml_pe {\
   \
 }";
 
     // import CSS once
     dom.importCssString(cssText);
 
-    exports.cssClass = "ace-mono-industrial";
+    exports.cssClass = "ace-vibrant-ink";
 });
