@@ -48,27 +48,19 @@
         
         this.update = function(message) {
             var content = message.data.file;
-            var ext = message.data.filename.split('.').pop();
-            if (ext == 'java') {
-                editor.getSession().setMode( new JavaMode() );
-            } else 
-            if (ext == 'xml') {
-                editor.getSession().setMode( new XmlMode() );
-            } else 
-            if (ext == 'html') {
-                editor.getSession().setMode( new HtmlMode() );
-            } else 
-            if (ext == 'css') {
-                editor.getSession().setMode( new CssMode() );
-            } else 
-            if (ext == 'js') {
-                editor.getSession().setMode( new JavaScriptMode() );
-            } else {
-                editor.getSession().setMode( new TextMode() );
-            }
+            var filename = message.data.filename;
+            
+            editor.setSession( editor.getSessionByName(filename) );
             editor.getSession().setValue(content);
+            
+            var target = $('#edit-tabs').children('#tab-'+filename.replace('.','_'))[0];
+            if (!target) {
+                var result = "<div id='tab-"+filename.replace('.','_')+"' class='tab'>"+filename+"</div>";
+                $('#edit-tabs').append(result);
+            }
+            $('#edit-tabs').children('.tab-active').removeClass('tab-active');
+            $('#edit-tabs').children('#tab-'+filename.replace('.','_')).addClass('tab-active');
         };
-
 
         function _unsubscribe()
         {

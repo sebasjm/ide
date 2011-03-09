@@ -24,9 +24,7 @@
         <script type="text/javascript" >
             var username = '<%= request.getUserPrincipal().getName()%>';
             var project = 'ide';
-            var editor = null;
             var dmp = new diff_match_patch();
-
 
             $.cometd.websocketEnabled = true;
             $.cometd.configure({
@@ -46,6 +44,20 @@
         <script src="/src/mode-java.js" type="text/javascript" charset="utf-8"></script>
         <script src="/src/keybinding-vim.js" type="text/javascript" charset="utf-8"></script>
 
+        <script type="text/javascript" >
+            var editor = null;
+
+            var JavaScriptMode = require("ace/mode/javascript").Mode;
+            var CssMode = require("ace/mode/css").Mode;
+            var HtmlMode = require("ace/mode/html").Mode;
+            var XmlMode = require("ace/mode/xml").Mode;
+            var JavaMode = require("ace/mode/java").Mode;
+            var TextMode = require("ace/mode/text").Mode;
+            var EditSession = require("ace/edit_session").EditSession;
+            var UndoManager = require("ace/undomanager").UndoManager;
+            var Vim = require("ace/keyboard/keybinding/vim").Vim;
+        </script>
+        
         <style type="text/css" media="screen">
             body {
                 overflow: hidden;
@@ -84,6 +96,36 @@
                 bottom: 10%;
                 left: 15%;
                 right: 20%;
+            }
+            #edit-content { 
+                margin: 0;
+                position: absolute;
+                top: 5%;
+                bottom: 0%;
+                left: 0%;
+                right: 0%;
+            }
+            #edit-tabs { 
+                margin: 0;
+                position: absolute;
+                top: 0%;
+                background-color: black;
+                bottom: 95%;
+                left: 0%;
+                right: 0%;
+            }
+            .tab {
+                text-align: center;
+                line-height: 1ex;
+                padding: 1ex;
+                margin: 1px;
+                display: inline-block;
+                cursor: pointer;
+                background-color: darkslategray;
+                color: white;
+            }
+            .tab-active {
+                background-color: lightslategray;
             }
             #files { 
                 margin: 0;
@@ -124,18 +166,8 @@
         var TextMode;
             $(document).ready(function(){
                 
-                JavaScriptMode = require("ace/mode/javascript").Mode;
-                CssMode = require("ace/mode/css").Mode;
-                HtmlMode = require("ace/mode/html").Mode;
-                XmlMode = require("ace/mode/xml").Mode;
-                JavaMode = require("ace/mode/java").Mode;
-                TextMode = require("ace/mode/text").Mode;
-                
-                var UndoManager = require("ace/undomanager").UndoManager;
-                var keyBinding = require("ace/keyboard/keybinding/vim").Vim;
-    
-                editor = ace.edit("editor");
-                editor.setKeyboardHandler( keyBinding )
+                editor = ace.edit("edit-content");
+                editor.setKeyboardHandler( Vim )
                 editor.setTheme("ace/theme/pastel_on_dark");
                 
                 var session = editor.getSession();
@@ -148,7 +180,44 @@
                     fn.call(session,content);
                 };
                 
-                session.setValue( $("#script_example").html() );
+                editor.sessions = {};
+                editor.getSessionByName = function(filename) {
+                    if (!this.sessions[filename]) {
+                        var theSession = new EditSession("");
+                        theSession.setUndoManager( new UndoManager() );
+                        
+                        var ext = filename.split('.').pop();
+                        if (ext == 'java') {
+                            theSession.setMode( new JavaMode() );
+                        } else 
+                        if (ext == 'xml') {
+                            theSession.setMode( new XmlMode() );
+                        } else 
+                        if (ext == 'html') {
+                            theSession.setMode( new HtmlMode() );
+                        } else 
+                        if (ext == 'css') {
+                            theSession.setMode( new CssMode() );
+                        } else 
+                        if (ext == 'js') {
+                            theSession.setMode( new JavaScriptMode() );
+                        } else {
+                            theSession.setMode( new TextMode() );
+                        }
+                        
+                        var fn = theSession.setValue;
+                        theSession.setValue = function (content) {
+                            theSession.original = content;
+                            fn.call(theSession,content);
+                        };
+
+                        this.sessions[filename] = theSession;
+                    }
+                    
+                    return this.sessions[filename];
+                };
+                
+//                session.setValue( $("#script_example").html() );
                 
             });
         </script>
@@ -173,7 +242,12 @@
             
         </div>
 
-        <div id="editor">some text: sebastian javier marchano</div>
+        <div id="editor">
+            <div id="edit-tabs" class="tab-line">
+                <% /* <div id='tab-filename' class='tab tab-active'>filename</div> */ %>
+            </div>
+            <div id="edit-content"></div>
+        </div>
 
         <div id="chatroom">
             <div id="chat"></div>

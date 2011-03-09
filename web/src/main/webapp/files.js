@@ -11,6 +11,18 @@
             if( $(e.target).hasClass('filename') ) {
                 files.selectFile.call(e.target,e);
             }
+            if( $(e.target).hasClass('tab') && !$(e.target).hasClass('tab-active')) {
+                var filename = $(e.target).html().trim();
+                editor.setSession( editor.getSessionByName(filename) );
+
+                var target = $('#edit-tabs').children('#tab-'+filename.replace('.','_'))[0];
+                if (!target) {
+                    var result = "<div id='tab-"+filename.replace('.','_')+"' class='tab'>"+filename+"</div>";
+                    $('#edit-tabs').append(result);
+                }
+                $('#edit-tabs').children('.tab-active').removeClass('tab-active');
+                $('#edit-tabs').children('#tab-'+filename.replace('.','_')).addClass('tab-active');
+            }
         });
 
 	files.join(project);
