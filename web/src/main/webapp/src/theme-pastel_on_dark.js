@@ -69,7 +69,7 @@ define('ace/theme/pastel_on_dark', function(require, exports, module) {
 }\
 \
 .ace-pastel-on-dark .ace_scroller {\
-  background-color: #2c2828;\
+  background-color: black;\
 }\
 \
 .ace-pastel-on-dark .ace_text-layer {\
