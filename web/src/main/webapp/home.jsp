@@ -38,7 +38,7 @@
         </script>
 
         <script src="/src/ace-uncompressed.js" type="text/javascript" charset="utf-8"></script>
-        <script src="/src/theme-twilight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="/src/theme-pastel_on_dark.js" type="text/javascript" charset="utf-8"></script>
         <script src="/src/mode-javascript.js" type="text/javascript" charset="utf-8"></script>
         <script src="/src/mode-xml.js" type="text/javascript" charset="utf-8"></script>
         <script src="/src/mode-css.js" type="text/javascript" charset="utf-8"></script>
@@ -136,7 +136,7 @@
     
                 editor = ace.edit("editor");
                 editor.setKeyboardHandler( keyBinding )
-                editor.setTheme("ace/theme/twilight");
+                editor.setTheme("ace/theme/pastel_on_dark");
                 
                 var session = editor.getSession();
                 session.setMode( new JavaScriptMode() );
