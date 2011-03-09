@@ -9,7 +9,7 @@
         <artifactId>config</artifactId>
         <version>1.0</version>
     </parent>
-    <artifactId>ide-server</artifactId>
+    <artifactId>jetty</artifactId>
     <packaging>jar</packaging>
     <version>1.0</version>
 
@@ -33,8 +33,8 @@
                 <configuration>
                     <mainClass>ar.com.sourcerain.labs.ide.WebServer</mainClass>
                     <arguments>
-                        <argument>../ide-webapp/target/ide-webapp-1.0.war</argument>
-                        <argument>../ide-services/target/ide-services-1.0-SNAPSHOT.war</argument>
+                        <argument>../web/target/web-1.0.war</argument>
+                        <argument>../services/target/services-1.0.war</argument>
                     </arguments>
                 </configuration>
             </plugin>
