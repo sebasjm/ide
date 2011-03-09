@@ -48,7 +48,7 @@ define('ace/theme/pastel_on_dark', function(require, exports, module) {
 }\
 \
 .ace-pastel-on-dark .ace_gutter {\
-  width: 50px;\
+  width: 30px;\
   background: #e8e8e8;\
   color: #333;\
   overflow : hidden;\
