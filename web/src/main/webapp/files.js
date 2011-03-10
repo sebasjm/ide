@@ -76,7 +76,6 @@
         this.updateList = function(message) {
             var files = message.data.files;
             var name = message.data.filename;
-            var depth = message.data.depth;
             var fileId = message.data.fileId;
             
             var result = "<div class='directory'>";
@@ -84,7 +83,7 @@
             result += "<div class='dir_content'>"; //directory content
             for (i = 0; i < files.length; i++) {
                 result += "<div class='"+files[i].split(':')[0]+"'>"; //directory or text_file
-                result += "<div id='file_"+depth+"_"+i+"' class='filename'> "+files[i].split(':')[1]+" </div>";
+                result += "<div id='"+fileId+"_"+i+"' class='filename'> "+files[i].split(':')[1]+" </div>";
                 result += "</div>";
             }
             result += "</div>"; //directory content
