@@ -49,17 +49,18 @@
         this.update = function(message) {
             var content = message.data.file;
             var filename = message.data.filename;
+            var fileId = message.data.fileId;
             
-            editor.setSession( editor.getSessionByName(filename) );
+            editor.setSession( editor.getSessionByName(fileId) );
             editor.getSession().setValue(content);
             
-            var target = $('#edit-tabs').children('#tab-'+filename.replace('.','_'))[0];
+            var target = $('#edit-tabs').children('#tab-'+fileId)[0];
             if (!target) {
-                var result = "<div id='tab-"+filename.replace('.','_')+"' class='tab'>"+filename+"</div>";
+                var result = "<div id='tab-"+fileId+"' class='tab'>"+filename+"</div>";
                 $('#edit-tabs').append(result);
             }
             $('#edit-tabs').children('.tab-active').removeClass('tab-active');
-            $('#edit-tabs').children('#tab-'+filename.replace('.','_')).addClass('tab-active');
+            $('#edit-tabs').children('#tab-'+fileId).addClass('tab-active');
         };
 
         function _unsubscribe()

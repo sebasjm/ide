@@ -63,6 +63,7 @@ public class FilesService {
             if (file.exists()) {
                 if (children == null) {
                     result.put("file", FileUtils.readFileToString(file));
+                    result.put("fileId", params.get("fileId"));
                     
                     _session.setAttribute("editingFile", file);
                     openedFile = file;

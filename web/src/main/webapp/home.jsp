@@ -181,29 +181,20 @@
                 };
                 
                 editor.sessions = {};
-                editor.getSessionByName = function(filename) {
-                    if (!this.sessions[filename]) {
+                editor.getSessionByName = function(fileId) {
+                    if (!this.sessions[fileId]) {
                         var theSession = new EditSession("");
                         theSession.setUndoManager( new UndoManager() );
                         
-                        var ext = filename.split('.').pop();
-                        if (ext == 'java') {
-                            theSession.setMode( new JavaMode() );
-                        } else 
-                        if (ext == 'xml') {
-                            theSession.setMode( new XmlMode() );
-                        } else 
-                        if (ext == 'html') {
-                            theSession.setMode( new HtmlMode() );
-                        } else 
-                        if (ext == 'css') {
-                            theSession.setMode( new CssMode() );
-                        } else 
-                        if (ext == 'js') {
-                            theSession.setMode( new JavaScriptMode() );
-                        } else {
-                            theSession.setMode( new TextMode() );
-                        }
+                        var ext = $("#"+fileId).html().trim().split('.').pop();
+                        
+                        theSession.setMode( 
+                            ext=='java'?new JavaMode():
+                            ext=='xml'?new XmlMode():
+                            ext=='css'?new CssMode():
+                            ext=='js'?new JavaScriptMode():
+                            new TextMode()
+                        );
                         
                         var fn = theSession.setValue;
                         theSession.setValue = function (content) {
@@ -211,10 +202,10 @@
                             fn.call(theSession,content);
                         };
 
-                        this.sessions[filename] = theSession;
+                        this.sessions[fileId] = theSession;
                     }
                     
-                    return this.sessions[filename];
+                    return this.sessions[fileId];
                 };
                 
 //                session.setValue( $("#script_example").html() );
