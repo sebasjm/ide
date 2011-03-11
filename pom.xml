@@ -14,6 +14,7 @@
         <module>parent</module>
         <module>jetty</module>
         <module>web</module>
+        <module>gitapi</module>
         <module>services</module>
     </modules>
 
