@@ -35,14 +35,14 @@
 
         </script>
 
-        <script src="/src/ace-uncompressed.js" type="text/javascript" charset="utf-8"></script>
-        <script src="/src/theme-pastel_on_dark.js" type="text/javascript" charset="utf-8"></script>
-        <script src="/src/mode-javascript.js" type="text/javascript" charset="utf-8"></script>
-        <script src="/src/mode-xml.js" type="text/javascript" charset="utf-8"></script>
-        <script src="/src/mode-css.js" type="text/javascript" charset="utf-8"></script>
-        <script src="/src/mode-html.js" type="text/javascript" charset="utf-8"></script>
-        <script src="/src/mode-java.js" type="text/javascript" charset="utf-8"></script>
-        <script src="/src/keybinding-vim.js" type="text/javascript" charset="utf-8"></script>
+        <script src="/ace/ace-uncompressed.js" type="text/javascript" charset="utf-8"></script>
+        <script src="/ace/theme-pastel_on_dark.js" type="text/javascript" charset="utf-8"></script>
+        <script src="/ace/mode-javascript.js" type="text/javascript" charset="utf-8"></script>
+        <script src="/ace/mode-xml.js" type="text/javascript" charset="utf-8"></script>
+        <script src="/ace/mode-css.js" type="text/javascript" charset="utf-8"></script>
+        <script src="/ace/mode-html.js" type="text/javascript" charset="utf-8"></script>
+        <script src="/ace/mode-java.js" type="text/javascript" charset="utf-8"></script>
+        <script src="/ace/keybinding-vim.js" type="text/javascript" charset="utf-8"></script>
 
         <script type="text/javascript" >
             var editor = null;
@@ -158,12 +158,6 @@
 
 
         <script type="text/javascript" id="script_example">
-        var JavaScriptMode;
-        var CssMode;
-        var HtmlMode;
-        var XmlMode;
-        var JavaMode;
-        var TextMode;
             $(document).ready(function(){
                 
                 editor = ace.edit("edit-content");
@@ -207,8 +201,6 @@
                     
                     return this.sessions[fileId];
                 };
-                
-//                session.setValue( $("#script_example").html() );
                 
             });
         </script>
