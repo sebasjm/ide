@@ -3,20 +3,16 @@
  */
 package ar.com.sourcerain.labs.ide;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.FilenameFilter;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.annotation.processing.ProcessingEnvironment;
+import java.util.ResourceBundle;
 import javax.inject.Inject;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang.StringUtils;
 
 import org.cometd.bayeux.server.BayeuxServer;
 import org.cometd.bayeux.server.ConfigurableServerChannel;
@@ -31,7 +27,7 @@ import org.cometd.server.authorizer.GrantAuthorizer;
 @Service("files")
 public class FilesService {
 
-    private static final String root_directory = "/home/sebas";
+    private static final String root_directory = ResourceBundle.getBundle("config").getString("projects.base.dir");
     
     public static File openedFile = null; //FIXME: find a way to store object in server side session
     
