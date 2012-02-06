@@ -24,6 +24,7 @@ public class WebListener extends GuiceServletContextListener{
             @Override
             protected void configureServlets() {
                 filter("/status.jsp").through(StatusFilter.class);
+                filter("/next").through(NextFilter.class);
             }
             
         }, new Module() {

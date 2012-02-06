@@ -24,9 +24,13 @@ public class GitRepositoryFactory implements RepositoryFactory {
         File git_repo = new File( name+"/.git" );
         Git git = null;
         try {
-            git = new Git( builder.setGitDir( git_repo ).readEnvironment() 
-                    .findGitDir() 
-                    .build() );
+            git = new Git( 
+                    builder
+                        .setGitDir( git_repo )
+                        .readEnvironment() 
+                        .findGitDir() 
+                        .build() 
+                );
         } catch (IOException ex) {
             Logger.getLogger(GitRepositoryFactory.class.getName()).log(Level.SEVERE, null, ex);
         }
