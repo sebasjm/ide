@@ -9,6 +9,7 @@
     <artifactId>ide</artifactId>
     <packaging>pom</packaging>
     <version>1.0</version>
+	<name>IDE</name>
 
     <modules>
         <module>parent</module>

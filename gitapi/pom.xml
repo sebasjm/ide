@@ -12,6 +12,7 @@
     <artifactId>gitapi</artifactId>
     <packaging>jar</packaging>
     <version>1.0</version>
+	<name>Git Api</name>
 
     <build>
         <testResources>
