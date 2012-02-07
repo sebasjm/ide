@@ -3,6 +3,7 @@
 package ar.com.sourcerain.labs.repo;
 
 import java.io.File;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -16,7 +17,7 @@ public interface Repository {
     public void addAll();
     public void addFile(File file);
     
-    public void commit();
+    public void commit(String message);
     
     public void stash();
     public Branch branch();
@@ -24,7 +25,8 @@ public interface Repository {
     
     public void checkout(Branch branch);
     
-    public void log();
+    public Iterator<? extends Revision> lastLogs(int n);
+    public Iterator<? extends Revision> lastLogsFromFile(int n, String file);
     
     public void push(Repository repo);
     public void pull(Repository repo);

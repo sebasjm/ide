@@ -2,18 +2,18 @@
  */
 package ar.com.sourcerain.labs.repo.git;
 
-import ar.com.sourcerain.labs.repo.Branch;
-import ar.com.sourcerain.labs.repo.Repository;
-import ar.com.sourcerain.labs.repo.Status;
+import ar.com.sourcerain.labs.repo.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.io.FileUtils;
 import org.eclipse.jgit.api.Git;
-import org.eclipse.jgit.api.errors.NoFilepatternException;
+import org.eclipse.jgit.api.errors.*;
 import org.eclipse.jgit.errors.NoWorkTreeException;
+import org.eclipse.jgit.errors.UnmergedPathException;
 /**
  *
  * @author Sebastian Javier Marchano sebasjm@sourcerain.com.ar
@@ -41,8 +41,22 @@ public class GitRepository implements Repository{
     }
 
     @Override
-    public void commit() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void commit(String message) {
+        try {
+            git.commit().setMessage(message).call();
+        } catch (NoHeadException ex) {
+            Logger.getLogger(GitRepository.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NoMessageException ex) {
+            Logger.getLogger(GitRepository.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnmergedPathException ex) {
+            Logger.getLogger(GitRepository.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ConcurrentRefUpdateException ex) {
+            Logger.getLogger(GitRepository.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JGitInternalException ex) {
+            Logger.getLogger(GitRepository.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (WrongRepositoryStateException ex) {
+            Logger.getLogger(GitRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
@@ -62,11 +76,6 @@ public class GitRepository implements Repository{
 
     @Override
     public void checkout(Branch branch) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public void log() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
@@ -111,5 +120,31 @@ public class GitRepository implements Repository{
     public File home() {
         return git.getRepository().getDirectory().getParentFile();
     }
-    
+
+    @Override
+    public Iterator<? extends Revision> lastLogs(int n) {
+        Exception e;
+        try {
+            return new MutableIterator<GitRevision>( git.log().call().iterator() );
+        } catch (NoHeadException ex) {
+            e = ex; Logger.getLogger(GitRepository.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JGitInternalException ex) {
+            e = ex; Logger.getLogger(GitRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        throw new RuntimeException("git exception",e);
+    }
+
+    @Override
+    public Iterator<? extends Revision> lastLogsFromFile(int n, String file) {
+        Exception e;
+        try {
+            return new MutableIterator<GitRevision>( git.log().addPath(file).call().iterator() );
+        } catch (NoHeadException ex) {
+            e = ex; Logger.getLogger(GitRepository.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JGitInternalException ex) {
+            e = ex; Logger.getLogger(GitRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        throw new RuntimeException("git exception",e);
+    }
+
 }
