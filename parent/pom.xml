@@ -28,11 +28,6 @@
           <id>jgit-repository</id>
           <url>http://download.eclipse.org/jgit/maven</url>
         </repository>
-        <repository>
-            <id>guice-maven</id>
-            <name>guice maven</name>
-            <url>http://guice-maven.googlecode.com/svn/trunk</url>
-        </repository>
     </repositories>
     
     <build>
@@ -178,7 +173,7 @@
               <version>${jgit-version}</version>
             </dependency>
             <dependency>
-                <groupId>com.google.code.guice</groupId>
+                <groupId>com.google.inject</groupId>
                 <artifactId>guice</artifactId>
                 <version>${guice-version}</version>
             </dependency>
