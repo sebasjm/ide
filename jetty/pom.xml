@@ -12,6 +12,7 @@
     <artifactId>jetty</artifactId>
     <packaging>jar</packaging>
     <version>1.0</version>
+	<name>IDE Jetty config</name>
 
     <build>
         <plugins>

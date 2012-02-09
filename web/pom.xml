@@ -12,6 +12,7 @@
     <artifactId>web</artifactId>
     <packaging>war</packaging>
     <version>1.0</version>
+	<name>IDE Web</name>
 
     <build>
         <plugins>

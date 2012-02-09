@@ -8,11 +8,15 @@
     <artifactId>config</artifactId>
     <packaging>pom</packaging>
     <version>1.0</version>
+	<name>IDE Parent</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <jetty-version>7.3.0.v20110203</jetty-version>
+        <jetty-version>7.5.0.v20110901</jetty-version>
         <jetty-plugin-version>${jetty-version}</jetty-plugin-version>
+	<jgit-version>1.2.0.201112221803-r</jgit-version>
+	<cometd-version>2.3.1</cometd-version>
+	<guice-version>3.0-r1291</guice-version>
     </properties>
 
     <repositories>
@@ -78,17 +82,17 @@
             <dependency>
                 <groupId>org.cometd.java</groupId>
                 <artifactId>cometd-java-server</artifactId>
-                <version>2.1.0</version>
+                <version>${cometd-version}</version>
             </dependency>
             <dependency>
                 <groupId>org.cometd.java</groupId>
                 <artifactId>cometd-java-oort</artifactId>
-                <version>2.1.0</version>
+                <version>${cometd-version}</version>
             </dependency>
             <dependency>
                 <groupId>org.cometd.java</groupId>
                 <artifactId>cometd-java-annotations</artifactId>
-                <version>2.1.0</version>
+                <version>${cometd-version}</version>
             </dependency>
             <dependency>
                 <groupId>org.eclipse.jetty</groupId>
@@ -149,7 +153,7 @@
             <dependency>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-jsp-2.1</artifactId>
-                <version>7.2.2.v20101205</version>
+                <version>${jetty-version}</version>
                 <scope>runtime</scope>
             </dependency>
             <dependency>
@@ -161,17 +165,17 @@
             <dependency>
                 <groupId>org.eclipse.jgit</groupId>
                 <artifactId>org.eclipse.jgit</artifactId>
-                <version>1.2.0.201112221803-r</version>
+                <version>${jgit-version}</version>
             </dependency>
             <dependency>
               <groupId>org.eclipse.jgit</groupId>
               <artifactId>org.eclipse.jgit.junit</artifactId>
-              <version>0.10.1</version>
+              <version>${jgit-version}</version>
             </dependency>
             <dependency>
                 <groupId>com.google.inject</groupId>
                 <artifactId>guice</artifactId>
-                <version>3.0</version>
+                <version>${guice-version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
