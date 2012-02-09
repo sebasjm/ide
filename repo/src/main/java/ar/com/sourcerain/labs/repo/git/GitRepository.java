@@ -18,7 +18,7 @@ import org.eclipse.jgit.errors.UnmergedPathException;
  *
  * @author Sebastian Javier Marchano sebasjm@sourcerain.com.ar
  */
-public class GitRepository implements Repository{
+public class GitRepository implements Repository {
 
     private Git git;
     
@@ -35,6 +35,7 @@ public class GitRepository implements Repository{
     public void addFile(File file) {
         try {
             git.add().addFilepattern( file.getName() ).call();
+//            dirty_status = true;
         } catch (NoFilepatternException ex) {
             Logger.getLogger(GitRepository.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -75,6 +76,11 @@ public class GitRepository implements Repository{
     }
 
     @Override
+    public Branch newBranch(String name) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
     public void checkout(Branch branch) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
@@ -89,20 +95,20 @@ public class GitRepository implements Repository{
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    private boolean dirty = true;
+    private boolean dirty_status = true;
     private Status status;
     @Override
     public Status status() {
-        if (dirty){
+//        if (dirty_status){
             try {
                 status = new GitStatus(git.status().call());
-                dirty = false;
+//                dirty_status = false;
             } catch (IOException ex) {
                 Logger.getLogger(GitRepository.class.getName()).log(Level.SEVERE, null, ex);
             } catch (NoWorkTreeException ex) {
                 Logger.getLogger(GitRepository.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
+//        }
         return status;
     }
 
@@ -125,7 +131,7 @@ public class GitRepository implements Repository{
     public Iterator<? extends Revision> lastLogs(int n) {
         Exception e;
         try {
-            return new MutableIterator<GitRevision>( git.log().call().iterator() );
+            return new MutableIterator<GitRevision>( git.log().call().iterator(), GitRevision.class );
         } catch (NoHeadException ex) {
             e = ex; Logger.getLogger(GitRepository.class.getName()).log(Level.SEVERE, null, ex);
         } catch (JGitInternalException ex) {
@@ -138,7 +144,7 @@ public class GitRepository implements Repository{
     public Iterator<? extends Revision> lastLogsFromFile(int n, String file) {
         Exception e;
         try {
-            return new MutableIterator<GitRevision>( git.log().addPath(file).call().iterator() );
+            return new MutableIterator<GitRevision>( git.log().addPath(file).call().iterator(), GitRevision.class );
         } catch (NoHeadException ex) {
             e = ex; Logger.getLogger(GitRepository.class.getName()).log(Level.SEVERE, null, ex);
         } catch (JGitInternalException ex) {

@@ -20,10 +20,9 @@ public class MutableIterator<T> implements Iterator<T> {
     private Class T;
     public T asd;
 
-    public MutableIterator(Iterator<RevCommit> revs) {
+    public MutableIterator(Iterator<RevCommit> revs, Class<T> clazz) {
         this.revs = revs;
-        ((ParameterizedType)this.getClass()).;
-        T = this.getClass().getTypeParameters()[0].getClass();
+        this.T = clazz;
         assert T != null : "could not infere parameter";
     }
 
