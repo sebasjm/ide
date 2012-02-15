@@ -16,7 +16,7 @@
         <jetty-plugin-version>${jetty-version}</jetty-plugin-version>
 	<jgit-version>1.2.0.201112221803-r</jgit-version>
 	<cometd-version>2.3.1</cometd-version>
-	<guice-version>3.0-r1291</guice-version>
+	<guice-version>3.0</guice-version>
     </properties>
 
     <repositories>
