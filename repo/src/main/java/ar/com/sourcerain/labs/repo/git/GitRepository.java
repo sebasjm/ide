@@ -6,7 +6,6 @@ import ar.com.sourcerain.labs.repo.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.io.FileUtils;
@@ -14,6 +13,8 @@ import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.*;
 import org.eclipse.jgit.errors.NoWorkTreeException;
 import org.eclipse.jgit.errors.UnmergedPathException;
+import org.eclipse.jgit.lib.Ref;
+import org.eclipse.jgit.revwalk.RevCommit;
 /**
  *
  * @author Sebastian Javier Marchano sebasjm@sourcerain.com.ar
@@ -131,7 +132,7 @@ public class GitRepository implements Repository {
     public Iterator<? extends Revision> lastLogs(int n) {
         Exception e;
         try {
-            return new MutableIterator<GitRevision>( git.log().call().iterator(), GitRevision.class );
+            return new MutableIterator( git.log().call().iterator(), RevCommit.class, GitRevision.class );
         } catch (NoHeadException ex) {
             e = ex; Logger.getLogger(GitRepository.class.getName()).log(Level.SEVERE, null, ex);
         } catch (JGitInternalException ex) {
@@ -144,7 +145,7 @@ public class GitRepository implements Repository {
     public Iterator<? extends Revision> lastLogsFromFile(int n, String file) {
         Exception e;
         try {
-            return new MutableIterator<GitRevision>( git.log().addPath(file).call().iterator(), GitRevision.class );
+            return new MutableIterator( git.log().addPath(file).call().iterator(), RevCommit.class, GitRevision.class );
         } catch (NoHeadException ex) {
             e = ex; Logger.getLogger(GitRepository.class.getName()).log(Level.SEVERE, null, ex);
         } catch (JGitInternalException ex) {
