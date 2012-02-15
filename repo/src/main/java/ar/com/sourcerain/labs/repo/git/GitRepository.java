@@ -68,22 +68,48 @@ public class GitRepository implements Repository {
 
     @Override
     public Branch branch() {
-        throw new UnsupportedOperationException("Not supported yet.");
+		try {
+			return new GitBranch( git.getRepository().getBranch() );
+		} catch (IOException ex) {
+			Logger.getLogger(GitRepository.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		return null;
     }
 
     @Override
-    public List<Branch> branches() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public Iterator<? extends Branch> branches() {
+        return new MutableIterator( git.branchList().call().iterator(), Ref.class, GitBranch.class );
     }
 
     @Override
     public Branch newBranch(String name) {
-        throw new UnsupportedOperationException("Not supported yet.");
+		try {
+			return new GitBranch( git.branchCreate().setName(name).call() );
+		} catch (JGitInternalException ex) {
+			Logger.getLogger(GitRepository.class.getName()).log(Level.SEVERE, null, ex);
+		} catch (RefAlreadyExistsException ex) {
+			Logger.getLogger(GitRepository.class.getName()).log(Level.SEVERE, null, ex);
+		} catch (RefNotFoundException ex) {
+			Logger.getLogger(GitRepository.class.getName()).log(Level.SEVERE, null, ex);
+		} catch (InvalidRefNameException ex) {
+			Logger.getLogger(GitRepository.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		return null;
     }
 
     @Override
     public void checkout(Branch branch) {
-        throw new UnsupportedOperationException("Not supported yet.");
+		try {
+			git.checkout().setName( branch.name() ).call();
+		} catch (JGitInternalException ex) {
+			Logger.getLogger(GitRepository.class.getName()).log(Level.SEVERE, null, ex);
+		} catch (RefAlreadyExistsException ex) {
+			Logger.getLogger(GitRepository.class.getName()).log(Level.SEVERE, null, ex);
+		} catch (RefNotFoundException ex) {
+			Logger.getLogger(GitRepository.class.getName()).log(Level.SEVERE, null, ex);
+		} catch (InvalidRefNameException ex) {
+			Logger.getLogger(GitRepository.class.getName()).log(Level.SEVERE, null, ex);
+		}
     }
 
     @Override

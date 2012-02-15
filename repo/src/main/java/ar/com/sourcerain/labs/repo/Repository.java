@@ -21,7 +21,7 @@ public interface Repository {
     
     public void stash();
     public Branch branch();
-    public List<Branch> branches();
+    public Iterator<? extends Branch> branches();
     public Branch newBranch(String name);
     
     public void checkout(Branch branch);

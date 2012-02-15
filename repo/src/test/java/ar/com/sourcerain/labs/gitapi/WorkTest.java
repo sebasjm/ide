@@ -65,10 +65,12 @@ public class WorkTest {
         repo.branch().name().equals("master");
         
         Branch newBranch = repo.newBranch(name);
-        
-        Iterator<Branch> branches = repo.branches().iterator();
-        assert branches.next().name().equals("master");
-        assert branches.next().name().equals(name);
+
+		Iterator<? extends Branch> branches = repo.branches();
+		Branch found = null;
+		while (branches.hasNext() && !name.equals( (found = branches.next()).name() )) {};
+		
+        assert found.name().equals(name) : "coulnt find branch " + name ;
         
         return newBranch;
     }
@@ -85,7 +87,7 @@ public class WorkTest {
         assert repo.branch().name().equals(branchName) : "we should be in " + branchName + " branch and we are in " + repo.branch().name();
         assert !repo.status().added().contains(file) : "file shouldnt be in this branch";
         
-        repo.checkout(master);
+        repo.checkout( master );
         
         assert repo.branch().name().equals("master") : "we should be in master branch and we are in " + repo.branch().name();
         assert repo.status().added().contains(file) : "file should be in this branch";
