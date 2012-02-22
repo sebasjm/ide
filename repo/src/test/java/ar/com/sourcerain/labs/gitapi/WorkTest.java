@@ -10,6 +10,7 @@ import ar.com.sourcerain.labs.repo.Repository;
 import com.google.inject.Inject;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.Random;
@@ -29,8 +30,8 @@ public class WorkTest {
     private File file;
     
     @BeforeClass
-    public void init() {
-        
+    public void init() throws IOException {
+        commitFile("README");
     }
     
     @Test(dataProvider="files")
@@ -62,13 +63,13 @@ public class WorkTest {
     }
     
     public Branch newBranch(String name) {
-        repo.branch().name().equals("master");
+//        assert repo.branch().name().equals("master") : "initial branch is not master";
         
         Branch newBranch = repo.newBranch(name);
 
-		Iterator<? extends Branch> branches = repo.branches();
-		Branch found = null;
-		while (branches.hasNext() && !name.equals( (found = branches.next()).name() )) {};
+        Iterator<? extends Branch> branches = repo.branches();
+        Branch found = null;
+        while (branches.hasNext() && !name.equals( (found = branches.next()).name() ));
 		
         assert found.name().equals(name) : "coulnt find branch " + name ;
         
@@ -76,21 +77,28 @@ public class WorkTest {
     }
     
     @Test(dataProvider="checkout_test")
-    public void checkout(String branchName, String file) throws IOException {
-        commitFile( file );
-        Branch master = repo.branch();
+    public void checkout(String branchName, final String file) throws IOException {
+        FilenameFilter filter = new FilenameFilter() {
+            @Override
+            public boolean accept(File dir, String name) {
+                return file.equals(name);
+            }
+        };
         
+        Branch master = repo.branch();
         Branch branch = newBranch( branchName );
+        
+        commitFile( file );
         
         repo.checkout( branch );
         
         assert repo.branch().name().equals(branchName) : "we should be in " + branchName + " branch and we are in " + repo.branch().name();
-        assert !repo.status().added().contains(file) : "file shouldnt be in this branch";
+        assert repo.home().list( filter ).length == 0 : "file shouldnt be in this branch";
         
         repo.checkout( master );
         
         assert repo.branch().name().equals("master") : "we should be in master branch and we are in " + repo.branch().name();
-        assert repo.status().added().contains(file) : "file should be in this branch";
+        assert repo.home().list( filter ).length == 1 : "file should be in this branch";
     }
     
     @AfterClass
