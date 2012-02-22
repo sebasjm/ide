@@ -68,12 +68,12 @@ public class GitRepository implements Repository {
 
     @Override
     public Branch branch() {
-		try {
-			return new GitBranch( git.getRepository().getBranch() );
-		} catch (IOException ex) {
-			Logger.getLogger(GitRepository.class.getName()).log(Level.SEVERE, null, ex);
-		}
-		return null;
+        try {
+                return new GitBranch( git.getRepository().getBranch() );
+        } catch (IOException ex) {
+                Logger.getLogger(GitRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
     @Override
@@ -83,33 +83,33 @@ public class GitRepository implements Repository {
 
     @Override
     public Branch newBranch(String name) {
-		try {
-			return new GitBranch( git.branchCreate().setName(name).call() );
-		} catch (JGitInternalException ex) {
-			Logger.getLogger(GitRepository.class.getName()).log(Level.SEVERE, null, ex);
-		} catch (RefAlreadyExistsException ex) {
-			Logger.getLogger(GitRepository.class.getName()).log(Level.SEVERE, null, ex);
-		} catch (RefNotFoundException ex) {
-			Logger.getLogger(GitRepository.class.getName()).log(Level.SEVERE, null, ex);
-		} catch (InvalidRefNameException ex) {
-			Logger.getLogger(GitRepository.class.getName()).log(Level.SEVERE, null, ex);
-		}
-		return null;
+        try {
+            return new GitBranch(git.branchCreate().setName(name).call());
+        } catch (JGitInternalException ex) {
+            Logger.getLogger(GitRepository.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (RefAlreadyExistsException ex) {
+            Logger.getLogger(GitRepository.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (RefNotFoundException ex) {
+            Logger.getLogger(GitRepository.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvalidRefNameException ex) {
+            Logger.getLogger(GitRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
     @Override
     public void checkout(Branch branch) {
-		try {
-			git.checkout().setName( branch.name() ).call();
-		} catch (JGitInternalException ex) {
-			Logger.getLogger(GitRepository.class.getName()).log(Level.SEVERE, null, ex);
-		} catch (RefAlreadyExistsException ex) {
-			Logger.getLogger(GitRepository.class.getName()).log(Level.SEVERE, null, ex);
-		} catch (RefNotFoundException ex) {
-			Logger.getLogger(GitRepository.class.getName()).log(Level.SEVERE, null, ex);
-		} catch (InvalidRefNameException ex) {
-			Logger.getLogger(GitRepository.class.getName()).log(Level.SEVERE, null, ex);
-		}
+        try {
+            git.checkout().setName(branch.name()).call();
+        } catch (JGitInternalException ex) {
+            Logger.getLogger(GitRepository.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (RefAlreadyExistsException ex) {
+            Logger.getLogger(GitRepository.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (RefNotFoundException ex) {
+            Logger.getLogger(GitRepository.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvalidRefNameException ex) {
+            Logger.getLogger(GitRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
