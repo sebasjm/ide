@@ -33,8 +33,8 @@ public class WebServer {
             HashLoginService hls = new HashLoginService("Security","etc/realm.properties");
             http.addBean(hls);
         }
-        
-        {
+
+		{
             WebAppContext webapp = new WebAppContext();
             webapp.setContextPath("/");
             webapp.setWar(args[1]);
