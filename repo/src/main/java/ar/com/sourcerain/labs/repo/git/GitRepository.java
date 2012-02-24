@@ -80,8 +80,8 @@ public class GitRepository implements Repository {
     public Iterator<? extends Branch> branches() {
         return new MutableIterator( 
 				git.branchList().call().iterator(), 
-				Ref.class, 
-				new Class[] { GitBranch.class }, 
+				GitBranch.class, 
+				new Class[] { Ref.class }, 
 				new Object[] {} );
     }
 
@@ -164,8 +164,8 @@ public class GitRepository implements Repository {
         try {
             return new MutableIterator( 
 					git.log().call().iterator(), 
-					RevCommit.class, 
-					new Class[] {  GitRevision.class, org.eclipse.jgit.lib.Repository.class }, 
+					GitRevision.class, 
+					new Class[] {  RevCommit.class, org.eclipse.jgit.lib.Repository.class }, 
 					new Object[] { git.getRepository() } );
         } catch (NoHeadException ex) {
             e = ex; Logger.getLogger(GitRepository.class.getName()).log(Level.SEVERE, null, ex);
@@ -181,8 +181,8 @@ public class GitRepository implements Repository {
         try {
             return new MutableIterator( 
 					git.log().addPath(file).call().iterator(), 
-					RevCommit.class, 
-					new Class[] { GitRevision.class }, 
+					GitRevision.class, 
+					new Class[] { RevCommit.class }, 
 					new Object[] {} );
         } catch (NoHeadException ex) {
             e = ex; Logger.getLogger(GitRepository.class.getName()).log(Level.SEVERE, null, ex);

@@ -12,7 +12,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <jetty-version>7.5.0.v20110901</jetty-version>
+        <jetty-version>7.5.4.v20111024</jetty-version>
         <jetty-plugin-version>${jetty-version}</jetty-plugin-version>
 	<jgit-version>1.2.0.201112221803-r</jgit-version>
 	<cometd-version>2.3.1</cometd-version>
@@ -108,6 +108,11 @@
         <dependency>
             <groupId>org.eclipse.jetty</groupId>
             <artifactId>jetty-server</artifactId>
+            <version>${jetty-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-util</artifactId>
             <version>${jetty-version}</version>
         </dependency>
         <dependency>
