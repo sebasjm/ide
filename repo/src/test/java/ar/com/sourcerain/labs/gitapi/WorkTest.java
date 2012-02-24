@@ -100,6 +100,18 @@ public class WorkTest {
         assert repo.branch().name().equals("master") : "we should be in master branch and we are in " + repo.branch().name();
         assert repo.home().list( filter ).length == 1 : "file should be in this branch";
     }
+
+    //checkout un viejo commit, continuar desde ese punto y mergear los nuevos cambios al master
+    
+    //bisect
+    
+    //rebase
+    
+    //diff
+    
+    //show
+    
+    //push, pull, fetch, merge
     
     @AfterClass
     public void finish() {
