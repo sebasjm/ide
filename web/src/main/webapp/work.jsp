@@ -218,11 +218,9 @@
         </div>
         
         <div id="files">
-            
             <div class="directory">
                 <div id="file_1_0" class="filename"> ide </div>
             </div>
-            
         </div>
 
         <div id="editor">
@@ -248,6 +246,7 @@
                 </div>
             </div>
         </div>
+            
         <div id="commands">
             sebas@sourcerain#<input type="text" />
         </div>
