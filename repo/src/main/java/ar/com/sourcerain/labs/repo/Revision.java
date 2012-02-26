@@ -14,6 +14,5 @@ public interface Revision {
     String getAuthor();
     String getDescription();
     Set<String> getFiles();
-    //getdiff()
     
 }

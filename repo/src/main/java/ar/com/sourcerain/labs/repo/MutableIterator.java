@@ -16,13 +16,13 @@ public class MutableIterator<T,K> implements Iterator<T> {
 
     private Iterator<K> it;
     private Class to;
-	private Class from;
+    private Class from;
     public T asd;
 
     public MutableIterator(Iterator<K> it, Class<K> from, Class<T> to) {
         this.it = it;
         this.to = to;
-		this.from = from;
+        this.from = from;
         assert to != null : "could not infere parameter";
     }
 

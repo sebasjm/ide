@@ -23,6 +23,7 @@ public interface Repository {
     public Iterator<? extends Branch> branches();
     public Branch newBranch(String name);
     
+    public void checkout(Revision rev);
     public void checkout(Branch branch);
     
     public Iterator<? extends Revision> lastLogs(int n);
@@ -32,6 +33,15 @@ public interface Repository {
     public void pull(Repository repo);
     
     public Status status();
+    
+    public Iterator<? extends Diff> diff(Revision older, Revision newer);
+    public Iterator<? extends Diff> diff(Revision older);
+    public Iterator<? extends Diff> diff();
 
     public void init();
+
+    public void rebase();
+
+//    public void reset();
+    
 }

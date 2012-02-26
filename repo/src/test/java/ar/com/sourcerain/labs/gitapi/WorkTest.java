@@ -6,7 +6,9 @@
 package ar.com.sourcerain.labs.gitapi;
 
 import ar.com.sourcerain.labs.repo.Branch;
+import ar.com.sourcerain.labs.repo.Diff;
 import ar.com.sourcerain.labs.repo.Repository;
+import ar.com.sourcerain.labs.repo.Revision;
 import com.google.inject.Inject;
 import java.io.File;
 import java.io.FileWriter;
@@ -27,19 +29,34 @@ public class WorkTest {
     @Inject
     private Repository repo;
     
-    private File file;
-    
     @BeforeClass
-    public void init() throws IOException {
+    public void init() {
         commitFile("README");
     }
     
+    public File appendFile(String fileName, String value) {
+        File f  = new File(repo.home().getPath() + "/" + fileName);
+        FileWriter w = null;
+        try {
+            w = new FileWriter(f);
+            w.append(value + "\n");
+        } catch (Exception e) {
+            throw new RuntimeException("could not append '" + value + "' to " + fileName, e);
+        } finally {
+            if ( w != null ) {
+                try {
+                    w.close();
+                } catch (IOException ex) {
+                    throw new RuntimeException("error closing file " + fileName, ex);
+                }
+            }
+        }
+        return f;
+    }
+    
     @Test(dataProvider="files")
-    public void addFile(String name) throws IOException {
-        file = new File(repo.home().getPath() + "/" + name);
-        FileWriter w = new FileWriter(file);
-        w.write("hola\n");
-        w.close();
+    public void addFile(String name) {
+        File file = appendFile(name, "hola");
         
         repo.addFile(file);
         
@@ -47,11 +64,11 @@ public class WorkTest {
     }
     
     @Test(dataProvider="commitFiles")
-    public void commitFile(String name) throws IOException {
+    public void commitFile(String name) {
         addFile(name);
         
         Random rnd = new Random(System.currentTimeMillis());
-        String desc = "first commit " + rnd.nextInt(1000000) + " " + rnd.nextInt(1000000);
+        String desc = "random commit " + rnd.nextInt(1000000) + " " + rnd.nextInt(1000000);
         repo.commit( desc );
         
         assert repo.lastLogs(5).next().getDescription().equals(desc);
@@ -59,7 +76,13 @@ public class WorkTest {
     
     @Test(dataProvider="branches")
     public void newBranchTest(String name) {
-        newBranch(name);
+        Branch master = repo.branch();
+        Branch branch = newBranch(name);
+        repo.checkout(branch);
+        commitFile("branch-"+name+"1");
+        commitFile("branch-"+name+"2");
+        repo.checkout(master);
+        commitFile("master-"+name+"1");
     }
     
     public Branch newBranch(String name) {
@@ -77,7 +100,7 @@ public class WorkTest {
     }
     
     @Test(dataProvider="checkout_test")
-    public void checkout(String branchName, final String file) throws IOException {
+    public void checkout(String branchName, final String file) {
         FilenameFilter filter = new FilenameFilter() {
             @Override
             public boolean accept(File dir, String name) {
@@ -106,8 +129,35 @@ public class WorkTest {
     //bisect
     
     //rebase
+    @Test(enabled=false)
+    public void rebase() {
+        commitFile( "file1" );
+        commitFile( "file2" );
+        commitFile( "file3" );
+        Iterator<? extends Revision> logs = repo.lastLogs(5);
+        Revision head = logs.next();
+        Revision older = null;
+        logs.next(); 
+        logs.next(); older = logs.next();
+        
+        repo.checkout( older );
+        
+//        assert repo.lastLogs(1).next().equals(older) : "bleh";
+        
+//        repo.reset();
+        
+        assert repo.lastLogs(1).next().equals(head) : "blah";
+    }
     
-    //diff
+    @Test(enabled=false)
+    public void diff() {
+        addFile("diff1");
+        appendFile("diff1", "seba");
+        Iterator<? extends Diff> diffs = repo.diff(null, null);
+        while (diffs.hasNext()) {
+            System.out.println("" + diffs.next());
+        }
+    }
     
     //show
     

@@ -5,6 +5,7 @@ package ar.com.sourcerain.labs.repo.git;
 import ar.com.sourcerain.labs.repo.Revision;
 import java.util.Collections;
 import java.util.Set;
+import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.revwalk.RevCommit;
 
 /**
@@ -24,6 +25,10 @@ public class GitRevision implements Revision {
         return revCommit.getName();
     }
 
+    public ObjectId getGitTree() {
+        return revCommit.getTree();
+    }
+    
     @Override
     public String getAuthor() {
         return revCommit.getAuthorIdent().toString();
@@ -38,5 +43,5 @@ public class GitRevision implements Revision {
     public Set<String> getFiles() {
         return Collections.emptySet();
     }
-    
+
 }
