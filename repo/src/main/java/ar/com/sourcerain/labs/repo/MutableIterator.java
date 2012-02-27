@@ -16,13 +16,16 @@ public class MutableIterator<T,K> implements Iterator<T> {
 
     private Iterator<K> it;
     private Class to;
-    private Class from;
+	private Class[] from;
+	private Object[] args;
     public T asd;
 
-    public MutableIterator(Iterator<K> it, Class<K> from, Class<T> to) {
+    public MutableIterator(Iterator<K> it, Class<T> to, Class<K>[] from, Object[] args) {
         this.it = it;
         this.to = to;
-        this.from = from;
+		this.from = from;
+		this.args = new Object[args.length+1];
+		System.arraycopy(args, 0, this.args, 1, args.length);
         assert to != null : "could not infere parameter";
     }
 
@@ -35,7 +38,8 @@ public class MutableIterator<T,K> implements Iterator<T> {
     public T next() {
         Exception e;
         try {
-            return (T) to.getConstructor(from).newInstance(it.next());
+			args[0] = it.next();
+            return (T) to.getConstructor(from).newInstance(args);
         } catch (NoSuchMethodException ex) {
             e = ex;
             Logger.getLogger(GitRepository.class.getName()).log(Level.SEVERE, null, ex);

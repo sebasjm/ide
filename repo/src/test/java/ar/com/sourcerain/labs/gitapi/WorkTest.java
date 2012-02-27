@@ -25,7 +25,7 @@ import org.testng.annotations.*;
 @Test
 @Guice(modules=RepoConfigModule.class)
 public class WorkTest {
-
+	
     @Inject
     private Repository repo;
     

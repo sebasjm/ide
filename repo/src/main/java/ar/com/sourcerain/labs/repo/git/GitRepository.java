@@ -81,7 +81,11 @@ public class GitRepository implements Repository {
 
     @Override
     public Iterator<? extends Branch> branches() {
-        return new MutableIterator( git.branchList().call().iterator(), Ref.class, GitBranch.class );
+        return new MutableIterator( 
+				git.branchList().call().iterator(), 
+				GitBranch.class, 
+				new Class[] { Ref.class }, 
+				new Object[] {} );
     }
 
     @Override
@@ -168,14 +172,18 @@ public class GitRepository implements Repository {
 
     @Override
     public File home() {
-        return git.getRepository().getDirectory().getParentFile();
+		return git.getRepository().getDirectory().getParentFile();
     }
 
     @Override
     public Iterator<? extends Revision> lastLogs(int n) {
         Exception e;
         try {
-            return new MutableIterator( git.log().call().iterator(), RevCommit.class, GitRevision.class );
+            return new MutableIterator( 
+					git.log().call().iterator(), 
+					GitRevision.class, 
+					new Class[] {  RevCommit.class, org.eclipse.jgit.lib.Repository.class }, 
+					new Object[] { git.getRepository() } );
         } catch (NoHeadException ex) {
             e = ex; Logger.getLogger(GitRepository.class.getName()).log(Level.SEVERE, null, ex);
         } catch (JGitInternalException ex) {
@@ -188,7 +196,11 @@ public class GitRepository implements Repository {
     public Iterator<? extends Revision> lastLogsFromFile(int n, String file) {
         Exception e;
         try {
-            return new MutableIterator( git.log().addPath(file).call().iterator(), RevCommit.class, GitRevision.class );
+            return new MutableIterator( 
+					git.log().addPath(file).call().iterator(), 
+					GitRevision.class, 
+					new Class[] { RevCommit.class }, 
+					new Object[] {} );
         } catch (NoHeadException ex) {
             e = ex; Logger.getLogger(GitRepository.class.getName()).log(Level.SEVERE, null, ex);
         } catch (JGitInternalException ex) {

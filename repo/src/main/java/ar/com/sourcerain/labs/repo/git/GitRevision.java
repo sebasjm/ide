@@ -3,9 +3,14 @@
 package ar.com.sourcerain.labs.repo.git;
 
 import ar.com.sourcerain.labs.repo.Revision;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.Set;
 import org.eclipse.jgit.lib.ObjectId;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.eclipse.jgit.diff.DiffFormatter;
+import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
 
 /**
@@ -15,9 +20,11 @@ import org.eclipse.jgit.revwalk.RevCommit;
 public class GitRevision implements Revision {
 
     private RevCommit revCommit;
-
-    public GitRevision(RevCommit revCommit) {
+	private Repository repo;
+	
+    public GitRevision(RevCommit revCommit, Repository repo) {
         this.revCommit = revCommit;
+		this.repo = repo;
     }
     
     @Override
@@ -41,6 +48,13 @@ public class GitRevision implements Revision {
 
     @Override
     public Set<String> getFiles() {
+		DiffFormatter df = new DiffFormatter(null);
+		try {
+			df.setRepository(repo);
+			df.scan(revCommit.getParent(1).getTree(),revCommit.getTree()).iterator().next();
+		} catch (IOException ex) {
+			Logger.getLogger(GitRevision.class.getName()).log(Level.SEVERE, null, ex);
+		}
         return Collections.emptySet();
     }
 
