@@ -18,7 +18,7 @@ import org.eclipse.jetty.webapp.WebAppContext;
 public class WebServer {
 
     public static void main(String[] args) throws Exception {
-        Server http = new Server(8080);
+        Server http = new Server(9090);
         Server comet = new Server(27306);
         
         {

@@ -232,7 +232,8 @@ public class GitRepository implements Repository {
             return new MutableIterator( 
                     diff.call().iterator(), 
                     DiffEntry.class, 
-                    GitDiff.class 
+                    new Class[]{ GitDiff.class },
+                    new Object[] {}
                 );
         } catch (GitAPIException ex) {
             e = ex; Logger.getLogger(GitRepository.class.getName()).log(Level.SEVERE, null, ex);
